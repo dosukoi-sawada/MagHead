@@ -10,4 +10,22 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'email' do
+    context '有向なemailの場合' do
+      before { user.email = 'test@example.com' }
+      it do
+        expect(user).to be_valid
+      end
+    end
+  end
+
+  describe 'password' do
+    context 'パスワードが6文字以上の場合' do
+      before { user.password = "a" * 8 }
+      it do
+        expect(user).to be_valid
+      end
+    end
+  end
 end
