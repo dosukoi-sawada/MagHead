@@ -1,0 +1,28 @@
+language: "ja"
+early_access: false
+reviews:
+    request_changes_workflow: false
+    high_level_summary: true
+    poem: true
+    review_status: true
+    collapse_walkthrough: false
+    path_filters:
+        - "!**/.xml"
+    path_instructions:
+        - path: "*"
+          instructions: |
+            "すでに設定されているレビュー項目に加え、以下のチェックを行ってください
+            - 日本語で記述されている箇所について、誤字脱字がないか
+            - コードとコメントの間に矛盾がないか
+            - デバッグ用コードの消し忘れがないか"
+    auto_review:
+        enabled: true
+        ignore_title_keywords:
+            - "WIP"
+            - "DO NOT MERGE"
+        drafts: false
+        base_branches:
+            - "develop"
+            - "feat/*"
+chat:
+    auto_reply: true
