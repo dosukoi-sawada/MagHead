@@ -16,6 +16,9 @@ jobs:
           name: wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
+          name: select gem for x86_64
+          command: bundle lock --add-platform x86_64-linux
+      - run:
           name: Database setup
           command: bundle exec rake db:test:prepare
       - run:
