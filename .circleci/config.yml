@@ -1,8 +1,33 @@
 version: 2.1
+orbs:
+  ruby: circleci/ruby@2.0.1
 jobs:
-  build:
+  test-ruby:
+    # Install gems, run rspec tests
     docker:
-      - image: circleci/node:4.8.2
+      - image: cimg/ruby:3.0.4-node
+        environment:
+          DB_HOST: localhost
+      - image: circleci/postgres:9.5-alpine
+    environment:
+      RAILS_ENV: test
     steps:
       - checkout
-      - run: echo "hello world"
+      - ruby/install-deps
+      - when:
+          condition:
+            equal: [ main, << pipeline.git.branch >> ]
+          steps:
+            - run:
+                name: wait for DB
+                command: dockerize -wait tcp://localhost:5432 -timeout 1m
+            - run:
+                name: Database setup
+                command: bundle exec rake db:test:prepare
+            - run:
+                name: rspec test
+                command: bundle exec rspec
+workflows:
+  build-and-test:
+    jobs:
+      - test-ruby
