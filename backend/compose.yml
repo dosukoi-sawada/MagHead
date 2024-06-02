@@ -13,7 +13,7 @@ services:
     # 無くても動くが指定しておくとコンテナ停止時にサービスが再起動してくれる
     # https://docs.docker.jp/v19.03/config/container/start-containers-automatically.html
     restart: always
-  web:
+  backend:
     build: ./backend
     # tmp/pids/server.pidが残ってたら `A server is already running. ~~` のエラーでrailsを起動できないので事前に消してから、`rails sever` する
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -32,5 +32,14 @@ services:
     stdin_open: true # サービス コンテナに標準入力を割り当てて実行するよう設定(https://docs.docker.jp/compose/compose-file/index.html#stdin-open)。
     depends_on:
       - db
+  frontend:
+    build: ./frontend
+    ports:
+      - 8080:3000
+    volumes:
+      - ./frontend/:/usr/src/app/frontend
+      - /usr/src/app/frontend/node_modules
+    environment:
+      WDS_SOCKET_PORT: 8080
 volumes:
   postgres_volume:
