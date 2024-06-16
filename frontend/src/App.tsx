@@ -49,21 +49,6 @@ const App: React.FC = () => {
     handleGetCurrentUser()
   }, [setCurrentUser])
 
-
-  // ユーザーが認証済みかどうかでルーティングを決定
-  // 未認証だった場合は「/signin」ページに促す
-  const Private = ({ children }: { children: React.ReactElement }) => {
-    if (!loading) {
-      if (isSignedIn) {
-        return children
-      } else {
-        return <a href="http://localhost:8080/signin">signin</a>
-      }
-    } else {
-      return <></>
-    }
-  }
-
   return (
     <Router>
       <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser}}>
