@@ -74,9 +74,9 @@ const Header: React.FC = () => {
           </>
         )
       }
-    } else {
-      return <></>
     }
+    
+    return <></>
   }
 
   return (
