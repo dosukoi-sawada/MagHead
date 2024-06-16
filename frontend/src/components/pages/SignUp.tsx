@@ -115,7 +115,7 @@ const SignUp: React.FC = () => {
               size="large"
               fullWidth
               color="primary"
-              disabled={!name || !email || !password || !passwordConfirmation ? true : false}
+              disabled={!name || !email || !password || !passwordConfirmation}
               onClick={handleSubmit}
             >
               Submit

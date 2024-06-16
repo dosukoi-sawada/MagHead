@@ -92,7 +92,7 @@ const SignIn: React.FC = () => {
               size="large"
               fullWidth
               color="primary"
-              disabled={!email || !password ? true : false} // 空欄があった場合はボタンを押せないように
+              disabled={!email || !password} // 空欄があった場合はボタンを押せないように
               onClick={handleSubmit}
             >
               Submit
