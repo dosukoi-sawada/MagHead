@@ -2,8 +2,6 @@ import React, { useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import Cookies from "js-cookie"
 
-import { Theme } from '@mui/material/styles'
-
 import AppBar from "@mui/material/AppBar"
 import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"

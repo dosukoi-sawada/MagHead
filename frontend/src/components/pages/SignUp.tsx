@@ -4,10 +4,11 @@ import Cookies from "js-cookie"
 
 import { Theme } from '@mui/material/styles'
 import TextField from "@mui/material/TextField"
-import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import CardHeader from "@mui/material/CardHeader"
 import Button from "@mui/material/Button"
+
+import FormCard from "../utils/FormCard"
 
 import { AuthContext } from "App"
 import AlertMessage from "components/utils/AlertMessage"
@@ -66,7 +67,7 @@ const SignUp: React.FC = () => {
   return (
     <>
       <form noValidate autoComplete="off">
-        <Card>
+        <FormCard>
           <CardHeader title="Sign Up" />
           <CardContent>
             <TextField
@@ -121,7 +122,7 @@ const SignUp: React.FC = () => {
               Submit
             </Button>
           </CardContent>
-        </Card>
+        </FormCard>
       </form>
       <AlertMessage // エラーが発生した場合はアラートを表示
         open={alertMessageOpen}

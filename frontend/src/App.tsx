@@ -8,6 +8,9 @@ import SignIn from "components/pages/SignIn"
 
 import { getCurrentUser } from "lib/api/auth"
 import { User } from "interfaces/index"
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+
+
 
 // グローバルで扱う変数・関数
 export const AuthContext = createContext({} as {
@@ -45,6 +48,17 @@ const App: React.FC = () => {
     setLoading(false)
   }
 
+  const theme = createTheme({
+    palette: {
+      mode: 'light',
+       primary: {
+         main: '#9565e6',
+         light: '#9565e6',
+         dark: '#9565e6'
+        }
+      }  
+  })
+
   useEffect(() => {
     handleGetCurrentUser()
   }, [setCurrentUser])
@@ -52,13 +66,15 @@ const App: React.FC = () => {
   return (
     <Router>
       <AuthContext.Provider value={{ loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser}}>
-        <CommonLayout>
-          <Routes>
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </CommonLayout>
+        <ThemeProvider theme={theme}>
+          <CommonLayout>
+            <Routes>
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </CommonLayout>
+        </ThemeProvider>
       </AuthContext.Provider>
     </Router>
   )
