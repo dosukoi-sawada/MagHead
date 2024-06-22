@@ -5,11 +5,12 @@ import Cookies from "js-cookie"
 import { Theme } from '@mui/material/styles'
 import { Typography } from "@mui/material"
 import TextField from "@mui/material/TextField"
-import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import CardHeader from "@mui/material/CardHeader"
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
+
+import FormCard from "../utils/FormCard"
 
 import { AuthContext } from "App"
 import AlertMessage from "components/utils/AlertMessage"
@@ -62,7 +63,7 @@ const SignIn: React.FC = () => {
   return (
     <>
       <form noValidate autoComplete="off">
-        <Card>
+        <FormCard>
           <CardHeader title="Sign In" />
           <CardContent>
             <TextField
@@ -106,7 +107,7 @@ const SignIn: React.FC = () => {
               </Typography>
             </Box>
           </CardContent>
-        </Card>
+        </FormCard>
       </form>
       <AlertMessage // エラーが発生した場合はアラートを表示
         open={alertMessageOpen}
