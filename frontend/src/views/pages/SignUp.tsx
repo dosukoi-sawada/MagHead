@@ -11,7 +11,7 @@ import Button from "@mui/material/Button"
 import FormCard from "../utils/FormCard"
 
 import { AuthContext } from "App"
-import AlertMessage from "components/utils/AlertMessage"
+import AlertMessage from "views/utils/AlertMessage"
 import { signUp } from "lib/api/auth"
 import { SignUpParams } from "interfaces/index"
 

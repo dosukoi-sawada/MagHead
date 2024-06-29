@@ -13,7 +13,7 @@ import Box from "@mui/material/Box"
 import FormCard from "../utils/FormCard"
 
 import { AuthContext } from "App"
-import AlertMessage from "components/utils/AlertMessage"
+import AlertMessage from "views/utils/AlertMessage"
 import { signIn } from "lib/api/auth"
 import { SignInParams } from "interfaces/index"
 

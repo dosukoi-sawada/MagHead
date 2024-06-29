@@ -2,7 +2,7 @@ import React from "react"
 
 import { Container, Grid } from "@mui/material"
 
-import Header from "components/layouts/Header"
+import Header from "views/layouts/Header"
 
 interface CommonLayoutProps {
   children: React.ReactElement
