@@ -12,16 +12,17 @@ import Box from "@mui/material/Box"
 
 import FormCard from "../utils/FormCard"
 
-import { AuthContext } from "App"
 import AlertMessage from "views/utils/AlertMessage"
 import { signIn } from "lib/api/auth"
 import { SignInParams } from "interfaces/index"
+import { setUser } from "slices/loginSlice"
+import { useDispatch } from "react-redux"
+import store from "views/store/loginStore"
+import client from "lib/api/client"
 
 // サインイン用ページ
 const SignIn: React.FC = () => {
   const navigate = useNavigate()
-
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
@@ -40,13 +41,21 @@ const SignIn: React.FC = () => {
       console.log(res)
 
       if (res.status === 200) {
-        // ログインに成功した場合はCookieに各値を格納
         Cookies.set("_access_token", res.headers["access-token"])
         Cookies.set("_client", res.headers["client"])
         Cookies.set("_uid", res.headers["uid"])
 
-        setIsSignedIn(true)
-        setCurrentUser(res.data.data)
+        const payload = res.data.data
+
+        const userProps = {
+          id: payload.id,
+          uid: res.headers["uid"],
+          name: payload.name,
+          type: 'general',
+          client: res.headers["client"]
+        }
+
+        store.dispatch(setUser(userProps))
 
         navigate("/")
 

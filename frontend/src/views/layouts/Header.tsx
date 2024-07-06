@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
+import store from "views/store/loginStore"
 
 import { signOut } from "lib/api/auth"
 
@@ -43,7 +44,7 @@ const Header: React.FC = () => {
     // 認証完了後はサインアウト用のボタンを表示
     // 未認証時は認証用のボタンを表示
     if (!loading) {
-      if (isSignedIn) {
+      if (store.getState().login.user.id) {
         return (
           <Button
             color="inherit"
