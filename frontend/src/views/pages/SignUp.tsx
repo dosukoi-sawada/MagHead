@@ -1,46 +1,50 @@
 import React, { useState, useContext } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import Cookies from "js-cookie"
 
 import { Theme } from '@mui/material/styles'
-import { Typography } from "@mui/material"
 import TextField from "@mui/material/TextField"
 import CardContent from "@mui/material/CardContent"
 import CardHeader from "@mui/material/CardHeader"
 import Button from "@mui/material/Button"
-import Box from "@mui/material/Box"
 
 import FormCard from "../utils/FormCard"
 
 import { AuthContext } from "App"
-import AlertMessage from "components/utils/AlertMessage"
-import { signIn } from "lib/api/auth"
-import { SignInParams } from "interfaces/index"
+import AlertMessage from "views/utils/AlertMessage"
+import { signUp } from "lib/api/auth"
+import { SignUpParams } from "interfaces/index"
 
-// サインイン用ページ
-const SignIn: React.FC = () => {
+
+// サインアップ用ページ
+const SignUp: React.FC = () => {
   const navigate = useNavigate()
 
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
+  const [name, setName] = useState<string>("")
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    const params: SignInParams = {
+    const params: SignUpParams = {
+      name: name,
       email: email,
-      password: password
+      password: password,
+      passwordConfirmation: passwordConfirmation
     }
 
     try {
-      const res = await signIn(params)
+      const res = await signUp(params)
       console.log(res)
 
       if (res.status === 200) {
-        // ログインに成功した場合はCookieに各値を格納
+        // アカウント作成と同時にログインさせてしまう
+        // 本来であればメール確認などを挟むべきだが、今回はサンプルなので
         Cookies.set("_access_token", res.headers["access-token"])
         Cookies.set("_client", res.headers["client"])
         Cookies.set("_uid", res.headers["uid"])
@@ -64,8 +68,17 @@ const SignIn: React.FC = () => {
     <>
       <form noValidate autoComplete="off">
         <FormCard>
-          <CardHeader title="Sign In" />
+          <CardHeader title="Sign Up" />
           <CardContent>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="Name"
+              value={name}
+              margin="dense"
+              onChange={event => setName(event.target.value)}
+            />
             <TextField
               variant="outlined"
               required
@@ -81,11 +94,21 @@ const SignIn: React.FC = () => {
               fullWidth
               label="Password"
               type="password"
-              placeholder="At least 6 characters"
               value={password}
               margin="dense"
               autoComplete="current-password"
               onChange={event => setPassword(event.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              label="Password Confirmation"
+              type="password"
+              value={passwordConfirmation}
+              margin="dense"
+              autoComplete="current-password"
+              onChange={event => setPasswordConfirmation(event.target.value)}
             />
             <Button
               type="submit"
@@ -93,19 +116,11 @@ const SignIn: React.FC = () => {
               size="large"
               fullWidth
               color="primary"
-              disabled={!email || !password} // 空欄があった場合はボタンを押せないように
+              disabled={!name || !email || !password || !passwordConfirmation}
               onClick={handleSubmit}
             >
               Submit
             </Button>
-            <Box textAlign="center">
-              <Typography variant="body2">
-                Don't have an account? &nbsp;
-                <Link to="/signup">
-                  Sign Up now!
-                </Link>
-              </Typography>
-            </Box>
           </CardContent>
         </FormCard>
       </form>
@@ -119,4 +134,4 @@ const SignIn: React.FC = () => {
   )
 }
 
-export default SignIn
+export default SignUp

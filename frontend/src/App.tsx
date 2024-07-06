@@ -1,10 +1,10 @@
 import React, { useState, useEffect, createContext } from "react"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 
-import CommonLayout from "components/layouts/CommonLayout"
-import Home from "components/pages/Home"
-import SignUp from "components/pages/SignUp"
-import SignIn from "components/pages/SignIn"
+import CommonLayout from "views/layouts/CommonLayout"
+import Home from "views/pages/Home"
+import SignUp from "views/pages/SignUp"
+import SignIn from "views/pages/SignIn"
 
 import { getCurrentUser } from "lib/api/auth"
 import { User } from "interfaces/index"
