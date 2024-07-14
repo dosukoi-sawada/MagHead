@@ -16,5 +16,6 @@ jobs:
             exit 0
           else
             echo "::error:: ブランチ名は次のような形式である必要があります：<author>/<issue-number>/<title>"
+            echo "$(echo '${{github.head_ref}}' | sed -e 's@[^\/]@@g')"
             exit 1
           fi
