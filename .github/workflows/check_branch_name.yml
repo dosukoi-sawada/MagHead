@@ -23,7 +23,7 @@ jobs:
               echo "::error:: 開発者の名前を正しく記載してください。次のいずれかである必要があります：[kamijo, shosho44]"
               exit 1
             fi
-            if ! [[ "$issue" =~ ^#([0-9]+)$ ]] & ! [[ "$issue" =~ ^maghead#([0-9]+)$ ]]; then
+            if ! [[ "$issue" =~ ^#([0-9]+)$ ]] && ! [[ "$issue" =~ ^maghead#([0-9]+)$ ]]; then
               echo "::error:: issue番号は次のような形式である必要があります：#<issue-number> または maghead#<issue-number>"
               echo "${{github.head_ref}}"
               echo "$issue"
