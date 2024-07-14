@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Check branch name
         run: |
-          if [(echo ${{github.head_ref}} | sed -e 's@[^\/]@@g'| wc -c) -eq 3]; then
+          if [(echo '${{github.head_ref}}' | sed -e 's@[^\/]@@g'| wc -c) -eq 3]; then
           else
             echo "::error:: ブランチ名は次のような形式である必要があります：<author>/<issue-number>/<title>"
             exit 1
