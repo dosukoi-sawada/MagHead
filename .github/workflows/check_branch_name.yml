@@ -3,8 +3,6 @@ name: check-branch-name
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    branches:
-      - '*'
     branches-ignore:
       - 'production'
 
