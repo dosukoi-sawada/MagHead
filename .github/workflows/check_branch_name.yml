@@ -1,0 +1,37 @@
+name: check-branch-name
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches-ignore:
+      - 'production'
+
+jobs:
+  check-branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch name
+        run: |
+          if [ "$(echo '${{github.head_ref}}' | sed -e 's@[^\/]@@g')" = "//" ]; then
+            IFS='/' read -r author issue title <<< "${{github.head_ref}}"
+            if [ "$author" = "" || "$issue" = "" || "$title" = "" ]; then
+              echo "::error:: ブランチ名は次のような形式である必要があります：<author>/<issue-number>/<title>"
+              echo "${{github.head_ref}}"
+              exit 1
+            fi
+            if ! [[ "$author" =~ ^(kamijo|shosho44)$ ]]; then
+              echo "::error:: ブランチ名に開発者の名前を正しく記載してください。次のいずれかである必要があります：[kamijo, shosho44]"
+              exit 1
+            fi
+            if ! [[ "$issue" =~ ^#([0-9]+)$ ]] && ! [[ "$issue" =~ ^maghead#([0-9]+)$ ]]; then
+              echo "::error:: ブランチ名に記載されるissue番号は次のような形式である必要があります：#<issue-number> または maghead#<issue-number>"
+              echo "${{github.head_ref}}"
+              echo "$issue"
+              exit 1
+            fi
+          else
+            echo "::error:: ブランチ名は次のような形式である必要があります：<author>/<issue-number>/<title>"
+            echo "$(echo '${{github.head_ref}}' | sed -e 's@[^\/]@@g')"
+            exit 1
+          fi
+          exit 0
