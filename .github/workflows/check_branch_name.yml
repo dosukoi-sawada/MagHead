@@ -26,6 +26,7 @@ jobs:
             if ! [[ "$issue" =~ ^#([0-9]+)$ ]] & ! [[ "$issue" =~ ^maghead#([0-9]+)$ ]]; then
               echo "::error:: issue番号は次のような形式である必要があります：#<issue-number> または maghead#<issue-number>"
               echo "${{github.head_ref}}"
+              echo "$issue"
               exit 1
             fi
           else
