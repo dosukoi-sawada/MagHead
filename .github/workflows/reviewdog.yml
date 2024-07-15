@@ -3,7 +3,6 @@ name: reviewdog
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    uses: actions/checkout@v4
     paths:
       - '**.rb'
 
@@ -11,9 +10,11 @@ jobs:
   rubocop:
     runs-on: ubuntu-latest
     steps:
-      - name: Run RuboCop
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1
+      - name: Checkout Code
         uses: actions/checkout@v4
+      - name: Run RuboCop
         uses: reviewdog/action-rubocop@v2
         with:
           rubocop_version: gemfile
