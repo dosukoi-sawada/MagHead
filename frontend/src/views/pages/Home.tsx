@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import store from "views/store/loginStore"
+import store from "store/loginStore"
 
 // とりあえず認証済みユーザーの名前やメールアドレスを表示
 const Home: React.FC = () => {
