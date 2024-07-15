@@ -17,7 +17,7 @@ import { signIn } from "lib/api/auth"
 import { SignInParams } from "interfaces/index"
 import { setUser } from "slices/loginSlice"
 import { useDispatch } from "react-redux"
-import store from "views/store/loginStore"
+import store from "store/loginStore"
 import client from "lib/api/client"
 
 // サインイン用ページ
