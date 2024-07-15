@@ -10,12 +10,12 @@ jobs:
   rubocop:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           working-directory: ./backend
-      - name: Checkout Code
-        uses: actions/checkout@v4
       - name: Run RuboCop
         uses: reviewdog/action-rubocop@v2
         with:
