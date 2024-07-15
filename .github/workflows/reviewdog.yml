@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
+        with:
+          working-directory: ./backend
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: Run RuboCop
