@@ -1,0 +1,22 @@
+name: reviewdog
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    uses: actions/checkout@v4
+    paths:
+      - '**.rb'
+
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run RuboCop
+        uses: ruby/setup-ruby@v1
+        uses: actions/checkout@v4
+        uses: reviewdog/action-rubocop@v2
+        with:
+          rubocop_version: gemfile
+          rubocop_extensions: rubocop-rails:gemfile rubocop-performance:gemfile
+          only_changed: true
+          fail_on_error: true
