@@ -1,0 +1,18 @@
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'db/schema.rb'
+    - 'db/migrate/20240602102255_devise_token_auth_create_users.rb'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 240
+
+Metrics/BlockLength:
+  Exclude:
+    - 'config/environments/development.rb'
