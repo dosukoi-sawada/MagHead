@@ -1,0 +1,17 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: docker compose up
+        run: docker compose -f compose.yml up -d
+      - name: run rspec
+        run: |
+          docker compose -f compose.yml exec backend rake db:create
+          docker compose -f compose.yml exec backend rake db:migrate
+          docker compose -f compose.yml exec backend bundle exec rspec
